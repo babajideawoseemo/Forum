@@ -1,7 +1,7 @@
 package com.project.forum.controller;
 
 import com.project.forum.domain.Post;
-import com.project.forum.service.PostService;
+import com.project.forum.service.PostServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +22,7 @@ import static org.springframework.http.MediaType.*;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostService postService;
-
+    private final PostServiceImpl postService;
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
         return ResponseEntity.created(URI.create("/posts/userID")).body(postService.createPost(post));
@@ -44,6 +43,11 @@ public class PostController {
         return ResponseEntity.ok().body(postService.uploadPhoto(id, file));
     }
 
+    @PutMapping("/photo/cloudinary")
+    public ResponseEntity<String> uploadPicture(@RequestParam("id") String id, @RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.ok().body(postService.uploadFile(id, file));
+    }
+
     @GetMapping(path="/image/{filename}", produces = { IMAGE_PNG_VALUE, IMAGE_JPEG_VALUE,IMAGE_GIF_VALUE })
     public byte[] getPhoto(@PathVariable("filename") String filename) throws IOException {
         return Files.readAllBytes(Paths.get(PHOTO_DIRECTORY + filename));
@@ -60,7 +64,7 @@ public class PostController {
     }
 
     @DeleteMapping("/comment/{id}")
-    public ResponseEntity<Post> deletePostByComment(@PathVariable String id,@PathVariable String comment) {
+    public ResponseEntity<Post> deletePostByComment(@PathVariable("id") String id,@PathVariable("comment") String comment) {
         return postService.findPostById(id)
                 .map(post -> {
                     postService.deletePostByComment(comment);

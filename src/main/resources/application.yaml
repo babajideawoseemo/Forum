@@ -29,3 +29,7 @@ server:
     path: /user/error
     whitelabel:
       enabled: false
+cloudinary:
+  cloud_name: dqvshjkgn
+  api_key: 725981873859846
+  api_secret: M5f5sNMu2Jg0qHHG0-5eM3nWyhs
