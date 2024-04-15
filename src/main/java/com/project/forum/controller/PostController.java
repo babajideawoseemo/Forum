@@ -1,7 +1,7 @@
 package com.project.forum.controller;
 
 import com.project.forum.domain.Post;
-import com.project.forum.service.PostServiceImpl;
+import com.project.forum.impl.PostServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

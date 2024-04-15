@@ -1,8 +1,9 @@
-package com.project.forum.service;
+package com.project.forum.impl;
 
 import com.cloudinary.Cloudinary;
 import com.project.forum.domain.Post;
 import com.project.forum.repository.PostRepository;
+import com.project.forum.service.PostService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
